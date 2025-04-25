@@ -1,0 +1,316 @@
+
+Koteswara Rao Ballamudi, 2019) used methodologies like  , are-Decision Tree, K-Nearest Neighbors (KNN), Naïve Bayes, and Adaptive Boosting (AdaBoost), to perform traffic accident analysis
+
+1. Define Your Objective
+Clearly state your goal: "Predict the likelihood of road accidents based on temporal, environmental, and road-related factors."
+
+Identify the target variable (accident_severity or accident occurrence) and the predictors (features like time, day_of_week, weather_conditions, etc.).
+
+2. Data Preparation
+Data Cleaning
+Handle missing or inconsistent values (e.g., replace or drop missing data using pandas).
+
+Remove redundant or irrelevant columns (e.g., unique identifiers like accident_index may not contribute to prediction).
+
+Standardize column formats (e.g., convert time into numerical hours).
+
+Feature Engineering
+Extract useful features:
+
+Hour of Accident: From the time column.
+
+Day of the Week: Encode weekdays numerically (Monday = 0, Sunday = 6).
+
+Urban/Rural Categorization: Use urban_or_rural_area.
+
+Environmental Factors: Incorporate features like weather_conditions, light_conditions, and road_surface_conditions.
+
+Normalize or scale numerical features (e.g., location_easting_osgr, speed_limit) using methods like MinMaxScaler or StandardScaler.
+
+Feature Selection
+Identify the most predictive features using techniques like:
+
+Correlation analysis (data.corr()).
+
+Feature importance (e.g., from Random Forests or XGBoost models).
+
+3. Exploratory Data Analysis (EDA)
+Visualize temporal trends:
+
+Plot accidents by hour, day, or season using bar charts, line graphs, or heatmaps.
+
+Understand relationships between variables:
+
+Scatter plots for speed_limit vs accident_severity.
+
+Pairwise plots for weather_conditions and light_conditions.
+
+Identify class imbalance:
+
+Check if certain accident severities are underrepresented.
+
+4. Model Development
+Train-Test Split
+Split the dataset into training and testing sets (e.g., 80% training, 20% testing).
+
+Model Selection
+Choose supervised learning algorithms based on your objective:
+
+For classification (e.g., severity prediction): Logistic Regression, Random Forest, XGBoost, or Neural Networks.
+
+For regression (e.g., accident likelihood): Linear Regression or Gradient Boosting Regressors.
+
+Model Training
+Train the model on the training set using features like time, day_of_week, weather_conditions, road_type, and speed_limit.
+
+Hyperparameter Tuning
+Use methods like GridSearchCV or RandomizedSearchCV to optimize model parameters.
+
+5. Model Evaluation
+Test the model on the test dataset.
+
+Evaluate performance using appropriate metrics:
+
+Classification: Accuracy, Precision, Recall, F1-Score, and Confusion Matrix.
+
+Regression: RMSE, MAE, and R-squared.
+
+Identify areas of improvement (e.g., add or drop features, adjust hyperparameters).
+
+6. Deployment
+Export the trained model (e.g., using joblib or pickle) for deployment in real-time accident prediction systems.
+
+Integrate into an application or dashboard for visualization.
+
+7. Further Analysis
+Use SHAP or LIME for feature importance analysis to explain the model's predictions.
+
+Monitor model performance and retrain periodically as new data becomes available.
+
+
+
+Minimal/exempt: Await confirmation on Moodle. You may proceed with data collection
+when confirmed.
+• Low: You must complete Form B: Low Risk Ethics Application & Data Protection
+Registration by downloading the PDF from Moodle.
+•
+High or Moderate: Follow
+
+
+
+legacy_collision_severity	1	Fatal
+legacy_collision_severity	2	Serious
+legacy_collision_severity	3	Slight
+accident_severity	1	Fatal
+accident_severity	2	Serious
+accident_severity	3	Slight
+enhanced_collision_severity	1	Fatal
+enhanced_collision_severity	5	Very Serious
+enhanced_collision_severity	6	Moderately Serious
+enhanced_collision_severity	7	Less Serious
+enhanced_collision_severity	3	Slight
+enhanced_collision_severity	-1	Data missing or out of range
+
+
+day_of_week	1	Sunday
+day_of_week	2	Monday
+day_of_week	3	Tuesday
+day_of_week	4	Wednesday
+day_of_week	5	Thursday
+day_of_week	6	Friday
+day_of_week	7	Saturday
+
+
+
+
+vehicle_type	1	Pedal cycle
+vehicle_type	2	Motorcycle 50cc and under
+vehicle_type	3	Motorcycle 125cc and under
+vehicle_type	4	Motorcycle over 125cc and up to 500cc
+vehicle_type	5	Motorcycle over 500cc
+vehicle_type	8	Taxi/Private hire car
+vehicle_type	9	Car
+vehicle_type	10	Minibus (8 - 16 passenger seats)
+vehicle_type	11	Bus or coach (17 or more pass seats)
+vehicle_type	16	Ridden horse
+vehicle_type	17	Agricultural vehicle
+vehicle_type	18	Tram
+vehicle_type	19	Van / Goods 3.5 tonnes mgw or under
+vehicle_type	20	Goods over 3.5t. and under 7.5t
+vehicle_type	21	Goods 7.5 tonnes mgw and over
+vehicle_type	22	Mobility scooter
+vehicle_type	23	Electric motorcycle
+vehicle_type	90	Other vehicle
+vehicle_type	97	Motorcycle - unknown cc
+vehicle_type	98	Goods vehicle - unknown weight
+vehicle_type	99	Unknown vehicle type (self rep only)
+vehicle_type	103	Motorcycle - Scooter (1979-1998)
+vehicle_type	104	Motorcycle (1979-1998)
+vehicle_type	105	Motorcycle - Combination (1979-1998)
+vehicle_type	106	Motorcycle over 125cc (1999-2004)
+vehicle_type	108	Taxi (excluding private hire cars) (1979-2004)
+vehicle_type	109	Car (including private hire cars) (1979-2004)
+vehicle_type	110	Minibus/Motor caravan (1979-1998)
+vehicle_type	113	Goods over 3.5 tonnes (1979-1998)
+
+
+
+
+casualty_distance_banding	1	Collision occurred within 5km of casualties home postcode
+casualty_distance_banding	2	Collision occurred between 5.001 and 10km of casualties home postcode
+casualty_distance_banding	3	Collision occurred between 10.001 and 20km of casualties home postcode
+casualty_distance_banding	4	Collision occurred between 20.001 and 100km of casualties home postcode
+casualty_distance_banding	5	Collision occurred over 100km of casualties home postcode
+casualty_distance_banding	-1	Data missing or out of range
+
+
+
+
+weather_conditions	1	Fine no high winds
+weather_conditions	2	Raining no high winds
+weather_conditions	3	Snowing no high winds
+weather_conditions	4	Fine + high winds
+weather_conditions	5	Raining + high winds
+weather_conditions	6	Snowing + high winds
+weather_conditions	7	Fog or mist
+weather_conditions	8	Other
+weather_conditions	9	Unknown
+weather_conditions	-1	Data missing or out of range
+
+light_conditions	1	Daylight
+light_conditions	4	Darkness - lights lit
+light_conditions	5	Darkness - lights unlit
+light_conditions	6	Darkness - no lighting
+light_conditions	7	Darkness - lighting unknown
+light_conditions	-1	Data missing or out of range
+
+
+
+junction_detail	0	Not at junction or within 20 metres
+junction_detail	1	Roundabout
+junction_detail	2	Mini-roundabout
+junction_detail	3	T or staggered junction
+junction_detail	5	Slip road
+junction_detail	6	Crossroads
+junction_detail	7	More than 4 arms (not roundabout)
+junction_detail	8	Private drive or entrance
+junction_detail	9	Other junction
+junction_detail	99	unknown (self reported)
+junction_detail	-1	Data missing or out of range
+
+
+junction_control	0	Not at junction or within 20 metres
+junction_control	1	Authorised person
+junction_control	2	Auto traffic signal
+junction_control	3	Stop sign
+junction_control	4	Give way or uncontrolled
+junction_control	-1	Data missing or out of range
+junction_control	9	unknown (self reported)
+
+
+
+road_type	1	Roundabout
+road_type	2	One way street
+road_type	3	Dual carriageway
+road_type	6	Single carriageway
+road_type	7	Slip road
+road_type	9	Unknown
+road_type	12	One way street/Slip road
+road_type	-1	Data missing or out of range
+
+
+
+accident	police_force	1	Metropolitan Police
+
+
+
+
+
+from shapely.geometry import Point
+import geopandas as gpd
+
+# Convert accident data to GeoDataFrame
+geometry = [Point(xy) for xy in zip(data['longitude'], data['latitude'])]
+accident_gdf = gpd.GeoDataFrame(data, geometry=geometry)
+
+# Set CRS for the accident data (WGS84 EPSG:4326)
+accident_gdf.crs = "EPSG:4326"
+
+# Verify CRS of accident GeoDataFrame
+print(accident_gdf.crs)
+
+# Ensure LSOA GeoDataFrame CRS matches accident CRS
+lsoa_gdf = gpd.read_file(lsoa_shapefile)
+lsoa_gdf = lsoa_gdf.to_crs(accident_gdf.crs)
+
+# Verify CRS alignment
+print(lsoa_gdf.crs)
+
+
+# Spatial join to assign LSOA regions to accidents
+accidents_with_lsoa = gpd.sjoin(accident_gdf, lsoa_gdf, how='left', predicate='intersects')
+
+# Group by LSOA and count accidents
+lsoa_accident_count = accidents_with_lsoa.groupby('LSOA11CD').size().reset_index(name='accident_count')
+
+# Merge counts with LSOA GeoDataFrame
+lsoa_gdf = lsoa_gdf.merge(lsoa_accident_count, on='LSOA11CD', how='left')
+
+# Fill NaN values (LSOAs with no accidents) with 0
+lsoa_gdf['accident_count'] = lsoa_gdf['accident_count'].fillna(0)
+
+print(lsoa_gdf.head())
+
+import folium
+from folium import Choropleth
+
+# Create a map centered in London
+map_london = folium.Map(location=[51.5074, -0.1278], zoom_start=10)
+
+# Add choropleth layer for accident concentration
+Choropleth(
+    geo_data=lsoa_gdf,  # Use the LSOA GeoDataFrame
+    data=lsoa_gdf,  # Aggregated accident data
+    columns=['LSOA11CD', 'accident_count'],  # LSOA codes and accident counts
+    key_on='feature.properties.LSOA11CD',  # Match LSOA codes in GeoJSON
+    fill_color='YlOrRd',
+    fill_opacity=0.7,
+    line_opacity=0.2,
+    legend_name='Accident Concentration',
+).add_to(map_london)
+
+# Save the map to an HTML file
+map_london.save("london_accident_concentration_map.html")
+
+# Display the map in a notebook (optional)
+map_london
+
+
+C:\Users\Idris\OneDrive - University College London\Documents\CASA 24_25\TERM 2\Data Science for Spatial Systems\Assesement\Accident_Prediction\Data\Shapefiles\Major_Road_Network_2018_Open_Roads\Major_Road_Network_2018_Open_Roads.shp
+
+
+C:\Users\Idris\OneDrive - University College London\Documents\CASA 24_25\TERM 2\Data Science for Spatial Systems\Assesement\Accident_Prediction\Data\Shapefiles\statistical-gis-boundaries-london\statistical-gis-boundaries-london\ESRI\LSOA_2011_London_gen_MHW.shp
+
+
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+train_x = scaler.fit_transform(train_x)
+test_x = scaler.transform(test_x)
+
+
+
+from sklearn.model_selection import cross_val_score
+scores = cross_val_score(reg_tree, train_x, train_y, cv=5)
+print("Cross-validation R² scores:", scores)
+print("Mean R² score:", scores.mean()) 
+
+
+
+# Compare R² scores across models
+models = {'Decision Tree': dt_final, 'Random Forest': rf_final}
+comparison = {name: [model.score(train_x, train_y), model.score(test_x, test_y)] for name, model in models.items()}
+
+comparison_df = pd.DataFrame.from_dict(comparison, orient='index', columns=['R² Train', 'R² Test'])
+print(comparison_df)
+comparison_df.head()

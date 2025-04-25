@@ -1,0 +1,183 @@
+C:\Users\Idris\OneDrive - University College London\Documents\CASA 24_25\TERM 2\Data Science for Spatial Systems\Assesement\Data\Shapefiles\statistical-gis-boundaries-london\statistical-gis-boundaries-london\ESRI\LSOA_2011_London_gen_MHW.shp
+
+I believe these variable are the variables we will use for our accident predictions 
+ 0   accident_index             104258 non-null  object 
+ 1   accident_year              104258 non-null  int64  
+ 2   longitude                  104246 non-null  float64
+ 3   latitude                   104246 non-null  float64
+ 4   accident_severity          104258 non-null  int64  
+ 5   number_of_vehicles         104258 non-null  int64  
+ 6   number_of_casualties       104258 non-null  int64  
+ 7   date                       104258 non-null  object 
+ 8   day_of_week                104258 non-null  int64  
+ 9   time                       104258 non-null  object 
+ 10  road_type                  104258 non-null  int64  
+ 11  speed_limit                104258 non-null  int64  
+ 12  junction_detail            104258 non-null  int64  
+ 13  junction_control           104258 non-null  int64  
+ 14  light_conditions           104258 non-null  int64  
+ 15  weather_conditions         104258 non-null  int64  
+ 16  road_surface_conditions    104258 non-null  int64  
+ 17  urban_or_rural_area        104258 non-null  int64  
+ 18  lsoa_of_accident_location  104258 non-null  object 
+
+Summary:
+Categorical: Represent qualitative labels or identifiers.
+
+Ordinal: Have meaningful rankings or ordered scales.
+
+Continuous: Represent measurable quantities.
+
+1. Categorical Variables
+These represent distinct categories or labels without any inherent order.
+
+day_of_week (e.g., Sunday, Monday, etc.)
+
+weather_conditions (e.g., Fine no high winds, Raining + high winds, Fog or mist)
+
+road_type (e.g., Roundabout, One-way street)
+
+junction_detail (e.g., Mini-roundabout, Slip road)
+
+junction_control (e.g., Auto traffic signal, Give way)
+
+light_conditions (e.g., Daylight, Darkness)
+
+urban_or_rural_area (e.g., Urban, Rural)
+
+trunk_road_flag (e.g., Yes, No)
+
+vehicle_type (e.g., Pedal cycle, Car, Taxi)
+
+These variables are typically encoded for statistical or machine learning models (e.g., one-hot encoding, label encoding).
+
+2. Ordinal Variables
+These are categorical variables with a meaningful order or ranking.
+
+accident_severity (1 = Fatal, 2 = Serious, 3 = Slight)
+
+speed_limit (e.g., 20 mph, 30 mph, 50 mph)
+
+enhanced_collision_severity (e.g., Fatal, Very Serious, Moderately Serious)
+
+casualty_distance_banding (e.g., Within 5km, Between 10km–20km)
+
+Ordinal variables can be treated differently during analysis since their order matters.
+
+3. Continuous Variables
+These represent numerical values that can take on any value within a range.
+
+longitude
+
+latitude
+
+number_of_vehicles
+
+number_of_casualties
+
+location_easting_osgr
+
+location_northing_osgr
+
+date (if converted into a numerical timestamp or duration, e.g., days since a reference date)
+
+time (if converted into minutes or hours as numerical values)
+
+Continuous variables are suitable for regression tasks or statistical tests involving numeric computations.
+
+
+### Strengths of Your Variables:
+1. **Spatial Data (`longitude`, `latitude`):**
+   These can identify accident-prone areas through spatial analysis or clustering methods. Geographic features are critical for understanding location-based patterns.
+
+2. **Temporal Data (`date`, `day_of_week`, `time`, `accident_year`):**
+   These are useful for detecting trends, seasonality, or time-of-day patterns in accidents. You could explore how accidents vary by day, month, or year.
+
+3. **Accident Severity (`accident_severity`):**
+   This is an excellent target variable (dependent variable) for classification tasks if you want to predict the severity of an accident based on other factors.
+
+4. **Road and Environmental Conditions (`road_type`, `speed_limit`, `junction_detail`, `light_conditions`, `weather_conditions`, `road_surface_conditions`):**
+   These provide insights into environmental and situational factors that influence accidents.
+
+5. **Number of Vehicles and Casualties (`number_of_vehicles`, `number_of_casualties`):**
+   Useful for predicting accident severity or understanding relationships between accident magnitude and other features.
+
+6. **Urban or Rural Indicator (`urban_or_rural_area`):**
+   Helps in identifying different risk levels based on location types (urban vs. rural).
+
+7. **Categorical Variables (`junction_control`, `light_conditions`, `road_type`, etc.):**
+   These encode specific situational factors that may have significant predictive power when properly transformed (e.g., one-hot encoding or embeddings).
+
+### Suggestions for Machine Learning Methodologies:
+1. **Data Preprocessing:**
+   - Handle missing values (e.g., impute or remove rows/columns).
+   - Convert categorical variables into numerical representations (e.g., one-hot encoding, label encoding, or embeddings for large cardinality variables like `lsoa_of_accident_location`).
+   - Normalize/scale continuous variables like `longitude`, `latitude`, and `speed_limit`.
+
+2. **Target Variable:**
+   - Depending on your goal, you can use `accident_severity` as your target for classification (e.g., Fatal vs. Slight vs. Serious).
+   - Alternatively, predict `number_of_casualties` for regression tasks.
+
+3. **Feature Engineering:**
+   - Create time-based features like `hour_of_day`, `is_weekend`, or seasonal indicators.
+   - Use clustering methods (like K-means) on `longitude` and `latitude` to group locations into zones.
+   - Derive interaction terms, such as `speed_limit` × `road_type` or `weather_conditions` × `light_conditions`.
+
+4. **Model Selection:**
+   - For classification: Try tree-based models like Random Forest, Gradient Boosting Machines (XGBoost, LightGBM), or deep learning models if the dataset is large.
+   - For regression (if predicting casualty numbers): Use similar models but evaluate them with regression-specific metrics (e.g., Mean Absolute Error).
+
+5. **Exploratory Data Analysis (EDA):**
+   - Visualize relationships between features (e.g., severity vs. road type).
+   - Use heatmaps to explore correlations and relationships in the data.
+
+6. **Validation and Metrics:**
+   - Use stratified cross-validation to ensure class distribution is preserved (especially for imbalanced data like accident severities).
+   - For classification, use metrics such as F1-score, accuracy, and ROC-AUC.
+   - For regression, use RMSE and MAE to gauge model performance.
+
+7. **Spatial and Temporal Models:**
+   - Apply geospatial models for analyzing the impact of location (`longitude`, `latitude`).
+   - For time-series trends, explore sequential models like LSTMs if you want to analyze temporal data deeply.
+
+8. **Clustering and Risk Mapping:**
+   - Use clustering algorithms (e.g., K-means or DBSCAN) to identify accident hotspots.
+   - Combine clustering results with feature analysis to prioritize interventions.
+
+9. **Feature Importance:**
+   - Utilize tree-based models or SHAP (SHapley Additive exPlanations) values to interpret feature contributions.
+
+### Potential Applications:
+1. **Accident Severity Prediction:**
+   Predict whether an accident will be fatal, serious, or slight based on environmental, road, and situational factors.
+
+2. **Hotspot Identification:**
+   Identify high-risk areas or junctions for targeted interventions.
+
+3. **Policy Recommendations:**
+   Use insights to recommend changes to speed limits, road designs, or signage in accident-prone areas.
+
+4. **Real-Time Predictions:**
+   Develop models to predict accident risks based on weather conditions and other real-time data.
+
+5. **Casualty Forecasting:**
+   Predict the number of casualties per incident to optimize emergency response planning.
+
+Your dataset has great potential! The key will be careful preprocessing, thoughtful feature engineering, and validating the models for robust and actionable insights. Let me know if you'd like help with any of these steps!
+
+
+Summary
+The low R² scores indicate that the current model is not sufficiently capturing the relationship between features and the target variable. Begin by:
+
+Validating your features for informativeness and scaling them properly.
+
+Tuning the Decision Tree hyperparameters to avoid underfitting.
+
+Using cross-validation to ensure model generalization.
+
+Testing more complex models if needed (e.g., Random Forest or Gradient Boosting).
+
+The result  indicates that the optimal max_depth for Decision Tree Regressor is 5, which suggests that the tree should be relatively shallow therfore to avoid overfitting or underfitting the data.
+
+Now, I need to retrain my Decision Tree Regressor using this best max_depth and evaluate its performance on the training and testing datasets.
+
